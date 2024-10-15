@@ -1,0 +1,217 @@
+﻿
+@model IEnumerable<UsuariosViewModel>
+@if (TempData["Success"] != null)
+{
+    <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
+}
+<div class="card text-primary">
+    <div class="card-header text-center">
+        <h5>Lista de Usuarios</h5>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a onclick="Create()" class="btn btn-outline-primary btn-sm">Crear Nuevo</a>
+                        <hr />
+                        <h5 class="panel-title">Usuarios</h5>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-hover" id="MyTable">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Nombre)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Fechacreacion)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Usuario)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Password)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.estatus)
+                                    </th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Nombre)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Fechacreacion)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Usuario)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Password)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.estatus) 
+
+                                        </td>
+                                        <td>
+                                            <a onclick="Read('@item.IdUsuario')" class="btn btn-outline-info btn-sm">Detalles</a>
+                                            <a onclick="update('@item.IdUsuario')" class="btn btn-outline-warning btn-sm">Editar</a>
+                                            <a onclick="Delete('Usuarios','@item.Nombre','@item.IdUsuario')" class="btn btn-outline-danger btn-sm">Eliminar</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-muted text-center">
+        Crud Usuarios
+    </div>
+
+</div>
+
+
+<!-- Modal Create -->
+<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createlabelModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+                         <div class="modal-header">
+                <h1 class="modal-title fs-5" id="createTitle">Modal title</h1>
+            </div>
+            <div id="createBody" class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Read -->
+<div class="modal fade" id="readModal" tabindex="-1" role="dialog" aria-labelledby="readlabelModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+                         <div class="modal-header">
+                <h1 class="modal-title fs-5" id="readTitle">Modal title</h1>
+            </div>
+            <div id="readBody" class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Update -->
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updatelabelModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+                         <div class="modal-header">
+                <h1 class="modal-title fs-5" id="updateTitle">Modal title</h1>
+            </div>
+            <div id="updateBody" class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal Delete -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="deleteTitle">Modal title</h1>
+            </div>
+            <div class="modal-body">
+                <p id="deleteMessage">A bunch of text</p>
+            </div>
+            <div class="modal-footer">
+
+
+                <button type="button" id="cmdCancelDelete" class="btn btn-outline-info btn-sm" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" id="cmdDelete" class="btn btn-outline-danger btn-sm">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        let idDelete;
+
+        document.getElementById('cmdDelete').addEventListener('click', () => {
+            ConfirmDelete();
+        });
+
+        document.getElementById('cmdCancelDelete').addEventListener('click', () => {
+            let elem = document.getElementById('deleteModal');
+            let instance = M.Modal.init(elem, { dismissible: true });
+            instance.close();
+        });
+
+                var Create = function () {
+            let uri = `Usuarios/Create`;
+            document.getElementById('createTitle').innerHTML =  `Agregar usuario`;
+            $("#createBody").load(uri,function(){
+                $("#createModal").modal('show');
+                M.updateTextFields();
+            });
+        }
+
+                        var Read = function (id) {
+            let uri = `Usuarios/Details/${id}`;
+            document.getElementById('readTitle').innerHTML =  `Consultar usuario`;
+            $("#readBody").load(uri,function(){
+                $("#readModal").modal('show');
+                M.updateTextFields();
+            });
+        }
+
+
+                        var update = function (id) {
+            let uri = `Usuarios/Edit/${id}`;
+            document.getElementById('updateTitle').innerHTML =  `Consultar usuario`;
+            $("#updateBody").load(uri,function(){
+                $("#updateModal").modal('show');
+                M.updateTextFields();
+            });
+        }
+
+        var Delete = function (entity, element, id) {
+            event.stopPropagation();
+            document.getElementById('deleteTitle').innerHTML = `Eliminar ${entity}`;
+            document.getElementById('deleteMessage').innerHTML = `¿Seguro de eliminar el usuario ${element}?`;
+            idDelete = id;
+            let elem = document.getElementById('deleteModal');
+            let instance = M.Modal.init(elem, { dismissible: true });
+            instance.open();
+        }
+
+        var ConfirmDelete = function () {
+            $.ajax({
+                type: "POST",
+                url: "Usuarios/Delete",
+                data: { id: idDelete }
+            })
+                .done(function (data) {
+                    let elem = document.getElementById('deleteModal');
+                    let instance = M.Modal.init(elem, { dismissible: true });
+                    instance.close();
+                    window.open("Usuarios/Index");
+
+                })
+                .fail(function () {
+                    var toastHTML = '<span>No se elimino el registro.</span><button class="btn-flat toast-action red-text">Error</button>';
+                    M.toast({ html: toastHTML });
+                });
+        }
+    </script>
+}

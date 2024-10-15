@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewData["Title"] = "FileReader";
+}
+@if (TempData["Success"] != null)
+{
+    <p class="alert alert-success" id="successMessage">@TempData["Success"] <a asp-action="getPDF" asp-route-id="Upload" target="_blank">  Ver PDF</a>   </p>
+}
+@if (TempData["Error"] != null)
+{
+    <p class="alert alert-danger" id="errorMessage">@TempData["Error"]</p>
+}
+<div class="card text-primary">
+    <div class="card-header text-center">
+        <h5>Cargar XML</h5>
+    </div>
+    <div class="card-body">
+        <div class="mb-3 mt-3">
+            ﻿<form method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label>Select File</label>
+                    <input type="file" name="file" class="form-control"/>
+                </div>
+                <div class="mb-3">
+                    <div class="col-3">
+                        <input type="submit" asp-controller="Upload" asp-action="FileReader" class="btn btn-outline-primary btn-sm" value="Subir " />
+                    </div>
+                </div>
+            </form>
+        </div>    
+   </div>
+
+</div>

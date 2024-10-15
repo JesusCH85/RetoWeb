@@ -1,0 +1,60 @@
+﻿@{
+    Layout = null;
+}
+@model CepdiRetoWeb.Models.MedicamentosViewModel
+<div class=" card text-primary">
+    <div class=" card-header text-center ">
+        <h5>Medicamento</h5>
+    </div>
+    <div class=" card-body ">
+        <dl class="row">
+            <dt class="col-sm-2 text-center text-dark">
+                @Html.DisplayNameFor(model => model.Nombre)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Nombre)
+            </dd>
+            <dt class="col-sm-2 text-center text-dark">
+                @Html.DisplayNameFor(model => model.Concentracion)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Concentracion)
+            </dd>
+            <dt class="col-sm-2 text-center text-dark">
+                @Html.DisplayNameFor(model => model.idformafarmaceutica)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.idformafarmaceutica)
+            </dd>
+            <dt class="col-sm-2 text-center text-dark">
+                @Html.DisplayNameFor(model => model.Precio)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Precio)
+            </dd>
+
+            <dt class="col-sm-2 text-center text-dark">
+                @Html.DisplayNameFor(model => model.stock)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.stock)
+            </dd>
+            <dt class="col-sm-2 text-center text-dark">
+                @Html.DisplayNameFor(model => model.Presentacion)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Presentacion)
+            </dd>
+            <dt class="col-sm-2 text-center text-dark">
+                @Html.DisplayNameFor(model => model.Bhabilitado)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Bhabilitado)
+            </dd>
+        </dl>
+    </div>
+    <div class=" card-footer text-center">
+        <a asp-action="Edit" asp-route-id="@Model.IdMedicamento" class="btn btn-outline-warning btn-sm">Editar</a>
+        <a asp-action="Index" class=" btn btn-outline-success btn-sm">volver a la lista</a>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+﻿@{
+    Layout = null;
+}
+@model CepdiRetoWeb.Models.UsuariosViewModel 
+<div class=" card text-primary">
+    <div class=" card-header text-center ">
+        <h5>Medicamento</h5>
+    </div>
+    <div class=" card-body ">
+        <dl class="row">
+            <dt class="col-sm-2 text-center text-dark">
+                @Html.DisplayNameFor(model => model.Nombre)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Nombre)
+            </dd>
+            <dt class="col-sm-2 text-center text-dark">
+                @Html.DisplayNameFor(model => model.Fechacreacion)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Fechacreacion)
+            </dd>
+            <dt class="col-sm-2 text-center text-dark">
+                @Html.DisplayNameFor(model => model.Usuario)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Usuario)
+            </dd>
+            <dt class="col-sm-2 text-center text-dark">
+                @Html.DisplayNameFor(model => model.Password)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Password)
+            </dd>
+            <dt class="col-sm-2 text-center text-dark">
+                @Html.DisplayNameFor(model => model.estatus)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.estatus== 1 ? "Activo" : "Inactivo")
+
+            </dd>
+
+
+        </dl>
+    </div>
+    <div class=" card-footer text-center">
+        <a asp-action="Index" class=" btn btn-outline-success btn-sm">volver a la lista</a>
+    </div>
+</div>
