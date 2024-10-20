@@ -22,6 +22,8 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+
+//Establece patron de ruta por defecto
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Usuarios}/{action=Index}/{id?}");
